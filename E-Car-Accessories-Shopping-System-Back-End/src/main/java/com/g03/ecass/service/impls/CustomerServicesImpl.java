@@ -159,17 +159,6 @@ public class CustomerServicesImpl implements ICustomerServices {
 		order.setOrderDate(LocalDate.now());
 		order.setTotalPrice(totalPrice);
 		order.setSelectedCustomer(userRepo.findById(userId).get());
-		/*
-		 * List<Integer> list = userRepo.getAllDeliveryBoy(Role.DELIVERY_BOY); Random r
-		 * = new Random();
-		 * 
-		 * CustomerServiceImpl.deliveryBoyId = list.get(r.nextInt(list.size()));
-		 * if(CustomerServiceImpl.deliveryBoyId == 0 ) CustomerServiceImpl.deliveryBoyId
-		 * = 1; System.out.println(CustomerServiceImpl.deliveryBoyId);
-		 * 
-		 * order.setSelectedDeliveryBoy(userRepo.findById(CustomerServiceImpl.
-		 * deliveryBoyId).get());
-		 */
 		return ordersRepo.save(order).getId();
 	}
 
@@ -239,14 +228,6 @@ public class CustomerServicesImpl implements ICustomerServices {
 		}
 		return ordersRepo.save(order);
 	}
-	/*
-	 * @Override public Orders cancelOrder(int orderId) { Orders order =
-	 * ordersRepo.findById(orderId).get();
-	 * order.setOrderDeliveryStatus(OrderStatus.CANCELD); List<OrderDetails> list =
-	 * ordersDetailsRepo.findBySelectedOrder(ordersRepo.findById(orderId).get());
-	 * for (OrderDetails orderDetails : list) { orderDetails } return
-	 * ordersRepo.save(order); }
-	 */
 
 	@Override
 	public List<OrderDetails> getOrdersDetailsList(int orderId) {
@@ -263,12 +244,6 @@ public class CustomerServicesImpl implements ICustomerServices {
 		}
 		return "Cart Updated";
 	}
-	/*
-	 * @Override public List<Orders> getOrdersListForDBoy(int deliveryBoyId) {
-	 * return
-	 * ordersRepo.findBySelectedDeliveryBoy(userRepo.findById(deliveryBoyId).get());
-	 * }
-	 */
 
 	@Override
 	public String deliveredOrder(int orderId) {

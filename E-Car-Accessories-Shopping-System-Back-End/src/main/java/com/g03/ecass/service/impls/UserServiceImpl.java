@@ -66,12 +66,6 @@ public class UserServiceImpl implements IUserServices {
 		return userDto;
 	}
 
-	/*
-	 * @Override public List<UserDto> getAllUsers() { List<User> allUser =
-	 * userRepo.findAll(); List<UserDto> allUserDto=new ArrayList<UserDto>();
-	 * System.out.println(allUser); BeanUtils.copyProperties(allUser, allUserDto);
-	 * return allUserDto; }
-	 */
 	@Override
 	public User createAccount(User user) throws UserHandlingException, ParseException {
 
@@ -89,13 +83,16 @@ public class UserServiceImpl implements IUserServices {
 	public User editProfile(int userId, User newUser) {
 		User user = userRepo.findById(userId).get();
 		user.setFirstName(newUser.getFirstName());
-		user.setFirstName(newUser.getFirstName());
 		user.setLastName(newUser.getLastName());
 		user.setPhoneNumber(newUser.getPhoneNumber());
-		user.setPassword(newUser.getPassword());
-		user.setConfirmPassword(newUser.getConfirmPassword());
+		if (newUser.getPassword() != null)
+			user.setPassword(newUser.getPassword());
+		if (newUser.getConfirmPassword() != null)
+			user.setConfirmPassword(newUser.getConfirmPassword());
 		user.setDateOfBirth(newUser.getDateOfBirth());
-		return user;
+		System.out.println(newUser);
+		System.out.println(user);
+		return userRepo.save(user);
 	}
 
 	@Override
