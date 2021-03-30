@@ -51,13 +51,6 @@ public class Orders extends BaseEntity {
 		this.deliveryDate = deliveryDate;
 	}
 
-	/*
-	 * @ManyToOne(fetch = FetchType.LAZY)
-	 * 
-	 * @JoinColumn(name = "delivery_boy_id", nullable = false)
-	 * 
-	 * @JsonIgnore private User selectedDeliveryBoy;
-	 */
 	public OrderStatus getOrderDeliveryStatus() {
 		return orderDeliveryStatus;
 	}

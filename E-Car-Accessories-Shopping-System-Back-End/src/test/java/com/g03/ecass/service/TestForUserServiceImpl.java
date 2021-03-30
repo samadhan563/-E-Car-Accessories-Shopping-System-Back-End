@@ -46,7 +46,7 @@ class TestForUserServiceImpl {
 		user.setEmail("samadhan563@gmail.com");
 		user.setPhoneNumber("9527644283");
 		when(userRepo.authenticateUser(anyString(), anyString())).thenReturn(user);
-		UserDto authenticateUser = userService.authenticateUser(new LoginRequest("samadhan563@gmail.com", "sama"));
+		UserDto authenticateUser = userService.authenticateUser(new LoginRequest("samadhan563@gmail.com", "sama#123"));
 		assertNotNull(authenticateUser);
 		System.out.println(authenticateUser);
 		// assertEquals(user, authenticateUser);
@@ -63,7 +63,7 @@ class TestForUserServiceImpl {
 		user.setEmail("samadhan@gmail.com");
 		user.setPhoneNumber("9527644283");
 		when(userRepo.authenticateUser(anyString(), anyString())).thenReturn(user);
-		UserDto authenticateUser = userService.authenticateUser(new LoginRequest("samadhan@gmail.com", "sama"));
+		UserDto authenticateUser = userService.authenticateUser(new LoginRequest("samadhan@gmail.com", "sama#123"));
 		assertNotNull(authenticateUser);
 		System.out.println(authenticateUser);
 		assertEquals(user.getFirstName(), authenticateUser.getFirstName());
@@ -73,7 +73,7 @@ class TestForUserServiceImpl {
 	void testAuthenticateUser_Exception() {
 		when(userRepo.authenticateUser(anyString(), anyString())).thenReturn(null);
 		assertThrows(Exception.class, () -> {
-			userService.authenticateUser(new LoginRequest("samadhan563@gmail.com", "sama"));
+			userService.authenticateUser(new LoginRequest("samadhan563@gmail.com", "sama#123"));
 		});
 
 	}
@@ -87,9 +87,9 @@ class TestForUserServiceImpl {
 		user1.setLastName("Gaikwad");
 		user1.setDateOfBirth(LocalDate.parse("1997-02-19"));
 		user1.setEmail("samadhan@gmail.com");
-		user1.setPassword("sama");
+		user1.setPassword("sama#123");
 		user1.setPhoneNumber("9527644283");
-		user1.setConfirmPassword("sama");
+		user1.setConfirmPassword("sama#123");
 		users.add(user1);
 		when(userRepo.findAll()).thenReturn(users);
 		List<User> allUser = userService.getAllUser();
@@ -108,9 +108,9 @@ class TestForUserServiceImpl {
 		user1.setLastName("Gaikwad");
 		user1.setDateOfBirth(LocalDate.parse("1997-02-19"));
 		user1.setEmail("samadhan@gmail.com");
-		user1.setPassword("sama");
+		user1.setPassword("sama#123");
 		user1.setPhoneNumber("9527644283");
-		user1.setConfirmPassword("sama");
+		user1.setConfirmPassword("sama#123");
 
 		users.add(user1);
 		when(userRepo.findAll()).thenReturn(users);
@@ -128,9 +128,9 @@ class TestForUserServiceImpl {
 		user.setLastName("Gaikwad");
 		user.setDateOfBirth(LocalDate.parse("1997-02-19"));
 		user.setEmail("samadhan@gmail.com");
-		user.setPassword("sama");
+		user.setPassword("sama#123");
 		user.setPhoneNumber("9527644283");
-		user.setConfirmPassword("sama");
+		user.setConfirmPassword("sama#123");
 		when(userRepo.save(new User(anyString(), anyString(), LocalDate.parse("1997-02-19"), anyString(), anyString(),
 				anyString(), anyString()))).thenReturn(user);
 		User newUser = userService.createAccount(user);

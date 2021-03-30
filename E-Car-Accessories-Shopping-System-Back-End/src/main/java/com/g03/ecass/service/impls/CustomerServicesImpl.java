@@ -14,6 +14,7 @@ import com.g03.ecass.dao.ICartRepository;
 import com.g03.ecass.dao.ICategoryRepository;
 import com.g03.ecass.dao.IOrdersDetailsRepository;
 import com.g03.ecass.dao.IOrdersRepository;
+import com.g03.ecass.dao.IPaymentDetailsRepository;
 import com.g03.ecass.dao.IPaymentRepository;
 import com.g03.ecass.dao.IProductRepository;
 import com.g03.ecass.dao.IUserRepository;
@@ -26,6 +27,7 @@ import com.g03.ecass.pojos.entity.OrderDetails;
 import com.g03.ecass.pojos.entity.OrderStatus;
 import com.g03.ecass.pojos.entity.Orders;
 import com.g03.ecass.pojos.entity.Payment;
+import com.g03.ecass.pojos.entity.PaymentDetails;
 import com.g03.ecass.pojos.entity.Products;
 import com.g03.ecass.pojos.entity.Status;
 import com.g03.ecass.pojos.entity.User;
@@ -51,7 +53,7 @@ public class CustomerServicesImpl implements ICustomerServices {
 	private IOrdersDetailsRepository ordersDetailsRepo;
 
 	@Autowired
-	private IPaymentRepository paymentRepo;
+	private IPaymentDetailsRepository paymentRepo;
 
 	@Autowired
 	private ICategoryRepository catRepo;
@@ -198,7 +200,7 @@ public class CustomerServicesImpl implements ICustomerServices {
 
 	@Override
 	public String addPayment(PaymentDTO paymentDTO) {
-		Payment payment = new Payment();
+		PaymentDetails payment = new PaymentDetails();
 		payment.setPaymentDate(LocalDate.now());
 		payment.setPaymentStatus(Status.PAID);
 		if (paymentDTO.getPaymentType().equals("CREDIT"))
@@ -210,10 +212,11 @@ public class CustomerServicesImpl implements ICustomerServices {
 			payment.setPaymentGateway(Gateway.CASH_ON_DELIVERY);
 			payment.setPaymentStatus(Status.PENDING);
 		}
-		User d = userRepo.findById(paymentDTO.getUserId()).get();
+		User user = userRepo.findById(paymentDTO.getUserId()).get();
+		payment.setUser(user);
 		Orders o = ordersRepo.findById(paymentDTO.getOrderId()).get();
-
 		payment.setOrder(o);
+		payment.setAmount(o.getTotalPrice());
 		paymentRepo.save(payment);
 		return "Payment Done";
 	}

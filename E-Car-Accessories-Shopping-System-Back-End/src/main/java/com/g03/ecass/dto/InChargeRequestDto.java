@@ -1,40 +1,6 @@
 package com.g03.ecass.dto;
 
-/*
-public enum Currency{
-   INR;
-}
-
-private String description;
-private int amount;
-private Currency currency;
-
-
-public String getDescription() {
-    return description;
-}
-
-public void setDescription(String description) {
-    this.description = description;
-}
-
-public int getAmount() {
-    return amount;
-}
-
-public void setAmount(int amount) {
-    this.amount = amount;
-}
-
-public Currency getCurrency() {
-    return currency;
-}
-
-public void setCurrency(Currency currency) {
-    this.currency = currency;
-}*/
-
-public class ChargeRequest {
+public class InChargeRequestDto {
 	public enum Currency {
 		INR;
 	}
@@ -44,18 +10,23 @@ public class ChargeRequest {
 	private Currency currency;
 	private String stripeEmail;
 	private String stripeToken;
+	private int orderId;
+	private int userId;
 
-	public ChargeRequest() {
+	public InChargeRequestDto() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ChargeRequest(String description, double amount, Currency currency, String stripeEmail, String stripeToken) {
+	public InChargeRequestDto(String description, double amount, Currency currency, String stripeEmail, String stripeToken,
+			int orderId, int userId) {
 		super();
 		this.description = description;
 		this.amount = amount;
 		this.currency = currency;
 		this.stripeEmail = stripeEmail;
 		this.stripeToken = stripeToken;
+		this.orderId = orderId;
+		this.userId = userId;
 	}
 
 	public String getDescription() {
@@ -98,11 +69,27 @@ public class ChargeRequest {
 		this.stripeToken = stripeToken;
 	}
 
+	public int getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
 	@Override
 	public String toString() {
 		return "ChargeRequest [description=" + description + ", amount=" + amount + ", currency=" + currency
-				+ ", stripeEmail=" + stripeEmail + ", stripeToken=" + stripeToken + "]";
+				+ ", stripeEmail=" + stripeEmail + ", stripeToken=" + stripeToken + ", orderId=" + orderId + ", userId="
+				+ userId + "]";
 	}
-	
 
 }
